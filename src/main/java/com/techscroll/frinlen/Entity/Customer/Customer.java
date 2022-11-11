@@ -1,15 +1,15 @@
 package com.techscroll.frinlen.Entity.Customer;
 
 
+import com.techscroll.frinlen.Entity.Invoice.Invoice;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
@@ -24,6 +24,8 @@ public class Customer {
     private String mobile;
     private String email;
     private boolean isActive;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<Invoice> invoice = new HashSet<>();
 
     public void isActive(boolean b) {
     }

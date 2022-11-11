@@ -2,15 +2,15 @@ package com.techscroll.frinlen.Entity.Invoice;
 
 
 
+import com.techscroll.frinlen.Entity.Customer.Customer;
+import com.techscroll.frinlen.Entity.Inventory.Inventory;
+import com.techscroll.frinlen.Entity.Supplier.Supplier;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Builder
@@ -21,17 +21,23 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long number;
+    private String number;
     private Double total;
     private Double sub_total;
     private Double tax;
     private Double discount;
     private Double tax_amount;
     private Double discount_amount;
-    private Double is_approved;
-    private Boolean approved_by;
-//    private Double request;
+    private Boolean is_approved;
+    private String approved_by;
+    private String reason;
     private boolean isActive;
+    @ManyToOne
+    private Customer customer;
+    @ManyToOne
+    private Inventory inventory;
+    @ManyToOne
+    private Supplier supplier;
 
     public void isActive(boolean b) {
     }

@@ -1,13 +1,14 @@
 package com.techscroll.frinlen.Entity.Brand;
+import com.techscroll.frinlen.Entity.Category.Category;
+import com.techscroll.frinlen.Entity.Inventory.Inventory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
@@ -21,6 +22,10 @@ public class Brand {
     private String name;
     private String description;
     private boolean isActive;
+    @ManyToOne
+    private Category category;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "brand")
+    private Set<Inventory> stocks = new HashSet<>();
 
     public void isActive(boolean b) {
     }

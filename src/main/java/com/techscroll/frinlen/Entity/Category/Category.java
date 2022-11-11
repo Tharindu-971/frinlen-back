@@ -1,14 +1,14 @@
 package com.techscroll.frinlen.Entity.Category;
 
+import com.techscroll.frinlen.Entity.Brand.Brand;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
@@ -22,6 +22,9 @@ public class Category {
     private String name;
     private String description;
     private boolean isActive;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    private Set<Brand> brand = new HashSet<>();
 
     public void isActive(boolean b) {
     }

@@ -3,6 +3,7 @@ package com.techscroll.frinlen.controllers.Customer;
 import com.techscroll.frinlen.Entity.Customer.Customer;
 import com.techscroll.frinlen.Service.Customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +19,23 @@ public class CustomerController {
     @GetMapping("/")
     public ResponseEntity<List<Customer>> getAllCustomers()
     {
-        //meka wenama watune (ResponseEntity<List<Customer>>)
-        return (ResponseEntity<List<Customer>>) customerService.findAllCustomers();
+        return new ResponseEntity( customerService.findAllCustomers(), HttpStatus.OK);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Customer> getCustomerById(@RequestParam Long customerId){
-        return customerService.findCustomerById(customerId);
+        return new ResponseEntity<>(customerService.findCustomerById(customerId), HttpStatus.OK) ;
+    }
+    @PostMapping()
+    public ResponseEntity<?> createCustomer(@RequestBody Customer customer){
+        return new ResponseEntity<>( HttpStatus.OK) ;
+    }
+
+    @PutMapping()
+    public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){
+        return new ResponseEntity<>( HttpStatus.OK);
+    }
+    @DeleteMapping()
+    public ResponseEntity<?> deleteCustomer(@RequestParam Long customerId){
+        return new ResponseEntity<>( HttpStatus.OK);
     }
 }

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice,Long> {
-    Invoice findByNumber(Long number);
+    Invoice findByNumber(String number);
 }

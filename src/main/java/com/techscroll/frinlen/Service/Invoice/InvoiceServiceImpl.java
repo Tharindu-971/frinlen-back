@@ -23,7 +23,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
     @Override
     public void createInvoice(Invoice invoice){
-        Invoice invoices = invoiceRepository.findByName(invoice.getName());
+        Invoice invoices = invoiceRepository.findByNumber(invoice.getNumber());
         if(invoices != null){
             return ;
         }
