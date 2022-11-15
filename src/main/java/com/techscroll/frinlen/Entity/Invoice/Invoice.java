@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Builder
@@ -23,22 +24,27 @@ public class Invoice {
     private Long id;
     private String number;
     private Double total;
-    private Double sub_total;
+    private Double subTotal;
     private Double tax;
     private Double discount;
-    private Double tax_amount;
-    private Double discount_amount;
-    private Boolean is_approved;
-    private String approved_by;
+    private Double taxAmount;
+    private Double discountAmount;
+    private Boolean isApproved;
+    private String approvedBy;
     private String reason;
     private boolean isActive;
+
     @ManyToOne
     private Customer customer;
-    @ManyToOne
-    private Inventory inventory;
-    @ManyToOne
-    private Supplier supplier;
 
-    public void isActive(boolean b) {
+    @ManyToMany
+    @JoinTable(
+            name = "inventory_invoice",
+            joinColumns = @JoinColumn(name = "inventory_id"),
+            inverseJoinColumns = @JoinColumn(name = "invoice_id"))
+    private Set<Inventory> inventories;
+
+    public void addInventory(Inventory inventory){
+        this.inventories.add(inventory);
     }
 }

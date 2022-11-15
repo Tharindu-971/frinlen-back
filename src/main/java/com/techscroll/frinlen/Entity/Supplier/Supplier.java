@@ -22,8 +22,6 @@ public class Supplier {
     private String mobile;
     private String email;
     private boolean isActive;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplier")
-    private Set<Invoice> invoice = new HashSet<>();
 
     public void isActive(boolean b) {
     }

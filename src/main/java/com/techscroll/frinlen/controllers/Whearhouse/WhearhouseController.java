@@ -1,6 +1,6 @@
 package com.techscroll.frinlen.controllers.Whearhouse;
 
-import com.techscroll.frinlen.Entity.Whearhouse.Whearhouse;
+import com.techscroll.frinlen.Entity.Whearhouse.Warehouse;
 import com.techscroll.frinlen.Service.Whearhouse.WhearhouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,21 +17,21 @@ public class WhearhouseController {
 
 
     @GetMapping("/")
-    public ResponseEntity<List<Whearhouse>> getAllWhearhouses()
+    public ResponseEntity<List<Warehouse>> getAllWhearhouses()
     {
         return new ResponseEntity( whearhouseService.findAllWhearhouses(), HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Whearhouse> getWhearhouseById(@RequestParam Long whearhouseId){
+    public ResponseEntity<Warehouse> getWhearhouseById(@RequestParam Long whearhouseId){
         return new ResponseEntity<>(whearhouseService.findWhearhouseById(whearhouseId), HttpStatus.OK) ;
     }
     @PostMapping()
-    public ResponseEntity<?> createWhearhouse(@RequestBody Whearhouse whearhouse){
+    public ResponseEntity<?> createWhearhouse(@RequestBody Warehouse warehouse){
         return new ResponseEntity<>( HttpStatus.OK) ;
     }
 
     @PutMapping()
-    public ResponseEntity<?> updateWhearhouse(@RequestBody Whearhouse whearhouse){
+    public ResponseEntity<?> updateWhearhouse(@RequestBody Warehouse warehouse){
         return new ResponseEntity<>( HttpStatus.OK);
     }
     @DeleteMapping()

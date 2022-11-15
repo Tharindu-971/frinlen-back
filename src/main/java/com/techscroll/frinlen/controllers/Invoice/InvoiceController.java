@@ -1,6 +1,7 @@
 package com.techscroll.frinlen.controllers.Invoice;
 
 import com.techscroll.frinlen.Entity.Invoice.Invoice;
+import com.techscroll.frinlen.Service.Common.InvoiceSequenceService;
 import com.techscroll.frinlen.Service.Invoice.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,13 +11,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/invoice")
+@RequestMapping("/invoices")
 public class InvoiceController {
     @Autowired
     private InvoiceService invoiceService;
 
+    @Autowired
+    private InvoiceSequenceService invoiceSequenceService;
 
-    @GetMapping("/")
+    @GetMapping("/sequence")
+    public ResponseEntity<String> generateInvoiceId(){
+        return new ResponseEntity<>(invoiceSequenceService.getInvoiceSequence(),HttpStatus.OK);
+    }
+
+    @GetMapping
     public ResponseEntity<List<Invoice>> getAllInvoices()
     {
         return new ResponseEntity( invoiceService.findAllInvoices(), HttpStatus.OK);
@@ -25,7 +33,7 @@ public class InvoiceController {
     public ResponseEntity<Invoice> getInvoiceById(@RequestParam Long invoiceId){
         return new ResponseEntity<>(invoiceService.findInvoiceById(invoiceId), HttpStatus.OK) ;
     }
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<?> createInvoice(@RequestBody Invoice invoice){
         return new ResponseEntity<>( HttpStatus.OK) ;
     }

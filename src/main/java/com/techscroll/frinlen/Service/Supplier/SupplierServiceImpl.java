@@ -1,8 +1,6 @@
 package com.techscroll.frinlen.Service.Supplier;
 
 import com.techscroll.frinlen.Entity.Supplier.Supplier;
-import com.techscroll.frinlen.Entity.Supplier.Supplier;
-import com.techscroll.frinlen.Entity.Whearhouse.Whearhouse;
 import com.techscroll.frinlen.repository.Supplier.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +40,7 @@ public class SupplierServiceImpl implements SupplierService {
     }
     @Override
     public void updateSupplier(Supplier supplier){
-        Supplier suppliers = supplierRepository.findById(supplier.getId().get());
+        Supplier suppliers = supplierRepository.findById(supplier.getId()).get();
         if(suppliers != null){
             Supplier supplierCreated = supplierRepository.save(supplier);
         }

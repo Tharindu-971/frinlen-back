@@ -40,7 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
     @Override
     public void updateCustomer(Customer customer){
-        Customer customers = customerRepository.findById(customer.getId().get());
+        Customer customers = customerRepository.findById(customer.getId()).get();
         if(customers != null){
             Customer customerCreated = customerRepository.save(customer);
         }

@@ -42,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
     @Override
     public void updateCategory(Category category){
-        Category categorys = categoryRepository.findById(category.getId().get());
+        Category categorys = categoryRepository.findById(category.getId()).get();
         if(categorys != null){
             Category categoryCreated = categoryRepository.save(category);
         }

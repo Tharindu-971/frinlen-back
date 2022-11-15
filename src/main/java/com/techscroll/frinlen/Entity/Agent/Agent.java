@@ -1,13 +1,12 @@
-package com.techscroll.frinlen.Entity.Brand;
-import com.techscroll.frinlen.Entity.Category.Category;
-import com.techscroll.frinlen.Entity.Inventory.Inventory;
+package com.techscroll.frinlen.Entity.Agent;
+
+import com.techscroll.frinlen.Entity.Customer.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -15,14 +14,17 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Brand {
+public class Agent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String description;
-    private boolean isActive;
+    private String mobile;
+    private String email;
+    @OneToMany(mappedBy="agent")
+    private Set<Customer> customers;
 
-    public void isActive(boolean b) {
+    public void addCustomer(Customer customer){
+        this.customers.add(customer);
     }
 }

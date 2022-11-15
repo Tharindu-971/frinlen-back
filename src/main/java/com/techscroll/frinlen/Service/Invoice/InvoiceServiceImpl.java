@@ -1,8 +1,6 @@
 package com.techscroll.frinlen.Service.Invoice;
 
 import com.techscroll.frinlen.Entity.Invoice.Invoice;
-import com.techscroll.frinlen.Entity.Invoice.Invoice;
-import com.techscroll.frinlen.Entity.Whearhouse.Whearhouse;
 import com.techscroll.frinlen.repository.Invoice.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +31,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     public void deleteInvoice(Long invoiceId){
         Invoice invoice = invoiceRepository.findById(invoiceId).get();
         if(invoice != null){
-            invoice.isActive(false);
+            invoice.setActive(false);
             invoiceRepository.save(invoice);
         }else {
             return ;
@@ -42,7 +40,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
     @Override
     public void updateInvoice(Invoice invoice){
-        Invoice invoices = invoiceRepository.findById(invoice.getId().get());
+        Invoice invoices = invoiceRepository.findById(invoice.getId()).get();
         if(invoices != null){
             Invoice invoiceCreated = invoiceRepository.save(invoice);
         }

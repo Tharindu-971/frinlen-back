@@ -23,9 +23,6 @@ public class Category {
     private String description;
     private boolean isActive;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
-    private Set<Brand> brand = new HashSet<>();
-
     public void isActive(boolean b) {
     }
 }

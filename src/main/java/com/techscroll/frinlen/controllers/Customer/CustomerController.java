@@ -16,7 +16,7 @@ public class CustomerController {
     private CustomerService customerService;
 
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<Customer>> getAllCustomers()
     {
         return new ResponseEntity( customerService.findAllCustomers(), HttpStatus.OK);

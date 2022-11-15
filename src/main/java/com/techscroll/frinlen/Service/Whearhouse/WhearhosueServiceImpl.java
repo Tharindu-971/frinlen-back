@@ -1,7 +1,7 @@
 package com.techscroll.frinlen.Service.Whearhouse;
 
 
-import com.techscroll.frinlen.Entity.Whearhouse.Whearhouse;
+import com.techscroll.frinlen.Entity.Whearhouse.Warehouse;
 import com.techscroll.frinlen.repository.Whearhouse.WhearhouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,37 +13,37 @@ public class WhearhosueServiceImpl implements WhearhouseService {
     @Autowired
     private WhearhouseRepository whearhouseRepository;
     @Override
-    public List<Whearhouse> findAllWhearhouse(){
+    public List<Warehouse> findAllWhearhouses(){
         return whearhouseRepository.findAll();
     }
     @Override
-    public Whearhouse findWhearhouseById(Long whearhouseId){
+    public Warehouse findWhearhouseById(Long whearhouseId){
         return whearhouseRepository.findById(whearhouseId).get();
     }
     @Override
-    public void createWhearhouse(Whearhouse whearhouse){
-        Whearhouse whearhouses = whearhouseRepository.findByName(whearhouse.getName());
+    public void createWhearhouse(Warehouse warehouse){
+        Warehouse whearhouses = whearhouseRepository.findByName(warehouse.getName());
         if(whearhouses != null){
             return ;
         }
-        Whearhouse whearhouseCreated = whearhouseRepository.save(whearhouse);
+        Warehouse warehouseCreated = whearhouseRepository.save(warehouse);
     }
     @Override
     public void deleteWhearhouse(Long whearhouseId){
-        Whearhouse whearhouse = whearhouseRepository.findById(whearhouseId).get();
-        if(whearhouse != null){
-            whearhouse.isActive(false);
-            whearhouseRepository.save(whearhouse);
+        Warehouse warehouse = whearhouseRepository.findById(whearhouseId).get();
+        if(warehouse != null){
+            warehouse.isActive(false);
+            whearhouseRepository.save(warehouse);
         }else {
             return ;
         }
 
     }
     @Override
-    public void updateWhearhouse(Whearhouse whearhouse){
-        Whearhouse whearhouses = whearhouseRepository.findById(whearhouse.getId().get());
+    public void updateWhearhouse(Warehouse warehouse){
+        Warehouse whearhouses = whearhouseRepository.findById(warehouse.getId()).get();
         if(whearhouses != null){
-            Whearhouse whearhouseCreated = whearhouseRepository.save(whearhouse);
+            Warehouse warehouseCreated = whearhouseRepository.save(warehouse);
         }
         return ;
     }

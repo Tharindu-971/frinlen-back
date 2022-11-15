@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Whearhouse {
+public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +24,11 @@ public class Whearhouse {
     private String address;
     private boolean isActive;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "whearhouse")
+    @ManyToMany
+    @JoinTable(
+            name = "inventory_warehouse",
+            joinColumns = @JoinColumn(name = "inventory_id"),
+            inverseJoinColumns = @JoinColumn(name = "warehouse_id"))
     private Set<Inventory> inventory = new HashSet<>();
 
     public void isActive(boolean b) {

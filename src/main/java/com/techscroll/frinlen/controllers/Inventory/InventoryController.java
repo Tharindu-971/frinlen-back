@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/inventory")
+@RequestMapping("/inventories")
 public class InventoryController {
     @Autowired
     private InventoryService inventoryService;
 
 
-    @GetMapping("/")
-    public ResponseEntity<List<Inventory>> getAllInventorys()
+    @GetMapping
+    public ResponseEntity<List<Inventory>> getAllInventories()
     {
         return new ResponseEntity( inventoryService.findAllInventories(), HttpStatus.OK);
     }

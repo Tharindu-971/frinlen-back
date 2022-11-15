@@ -40,7 +40,7 @@ public class BrandServiceImpl implements BrandService{
     }
     @Override
     public void updateBrand(Brand brand){
-        Brand brands = brandRepository.findById(brand.getId().get());
+        Brand brands = brandRepository.findById(brand.getId()).get();
         if(brands != null){
             Brand brandCreated = brandRepository.save(brand);
         }

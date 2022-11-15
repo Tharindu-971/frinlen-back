@@ -1,8 +1,6 @@
 package com.techscroll.frinlen.Service.Inventory;
 
 import com.techscroll.frinlen.Entity.Inventory.Inventory;
-import com.techscroll.frinlen.Entity.Inventory.Inventory;
-import com.techscroll.frinlen.Entity.Whearhouse.Whearhouse;
 import com.techscroll.frinlen.repository.Inventory.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +32,7 @@ public class InventoryServiceImpl implements InventoryService{
     public void deleteInventory(Long inventoryId){
         Inventory inventory = inventoryRepository.findById(inventoryId).get();
         if(inventory != null){
-            inventory.isActive(false);
+            inventory.setActive(false);
             inventoryRepository.save(inventory);
         }else {
             return ;
@@ -43,7 +41,7 @@ public class InventoryServiceImpl implements InventoryService{
     }
     @Override
     public void updateInventory(Inventory inventory){
-        Inventory inventorys = inventoryRepository.findById(inventory.getId().get());
+        Inventory inventorys = inventoryRepository.findById(inventory.getId()).get();
         if(inventorys != null){
             Inventory inventoryCreated = inventoryRepository.save(inventory);
         }

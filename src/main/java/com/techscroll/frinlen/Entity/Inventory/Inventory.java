@@ -1,7 +1,6 @@
 package com.techscroll.frinlen.Entity.Inventory;
-import com.techscroll.frinlen.Entity.Brand.Brand;
 import com.techscroll.frinlen.Entity.Invoice.Invoice;
-import com.techscroll.frinlen.Entity.Whearhouse.Whearhouse;
+import com.techscroll.frinlen.Entity.Whearhouse.Warehouse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,23 +20,26 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Double buying_price;
-    private Double selling_price;
+    private Double buyingPrice;
+    private Double sellingPrice;
     private Integer quantity;
-    private String reorder_level;
-    private boolean instock;
+    private String reOrderLevel;
+    private boolean inStock;
     private String status;
     private boolean isActive;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventory")
-    private Set<Invoice> invoice = new HashSet<>();
+    @ManyToMany( mappedBy = "inventories")
+    private Set<Invoice> invoices = new HashSet<>();
 
-    @ManyToOne
-    private Brand brand;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "inventory")
-    private Set<Whearhouse> whearhouse = new HashSet<>();
+    @ManyToMany(mappedBy = "inventory")
+    private Set<Warehouse> warehouses = new HashSet<>();
 
-    public void isActive(boolean b) {
+    public void addInvoice(Invoice invoice){
+        this.invoices.add(invoice);
+    }
+
+    public void addWarehouse(Warehouse warehouse){
+        this.warehouses.add(warehouse);
     }
 }
