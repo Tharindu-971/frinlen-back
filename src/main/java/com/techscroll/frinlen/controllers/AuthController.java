@@ -36,11 +36,11 @@ import com.techscroll.frinlen.security.services.UserDetailsImpl;
 
 //@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/auth")
 public class AuthController {
   @Autowired
   private AuthService authService;
-  @PostMapping("/auth/login")
+  @PostMapping("/login")
   public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid LoginRequestDto loginRequestDto){
     return new ResponseEntity(authService.login(loginRequestDto), HttpStatus.OK);
   }
