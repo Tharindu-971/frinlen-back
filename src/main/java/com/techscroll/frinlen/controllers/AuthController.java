@@ -11,6 +11,7 @@ import com.techscroll.frinlen.Service.Auth.AuthService;
 import com.techscroll.frinlen.dto.user.request.LoginRequestDto;
 import com.techscroll.frinlen.dto.user.response.LoginResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,7 +42,7 @@ public class AuthController {
   private AuthService authService;
   @PostMapping("/auth/login")
   public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid LoginRequestDto loginRequestDto){
-    return authService.login(loginRequestDto);
+    return new ResponseEntity(authService.login(loginRequestDto), HttpStatus.OK);
   }
 
 }
