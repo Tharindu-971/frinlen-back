@@ -11,6 +11,7 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
+
     @Override
     public List<Customer> findAllCustomers(){
         return customerRepository.findAll();
