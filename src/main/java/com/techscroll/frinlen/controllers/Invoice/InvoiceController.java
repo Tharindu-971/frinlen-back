@@ -24,6 +24,7 @@ public class InvoiceController {
     @Autowired
     private InvoiceSequenceService invoiceSequenceService;
 
+    @Autowired
     private AgentRepository agentRepository;
 
     @GetMapping("/sequence")
@@ -44,7 +45,7 @@ public class InvoiceController {
         customer.setMobile(agentCustomerCreateRequestDto.getMobile());
         customer.setAddress1(agentCustomerCreateRequestDto.getAddress1());
         customer.setAddress2(agentCustomerCreateRequestDto.getAddress2());
-        customer.setAgent(agent);
+
 
         agent.addCustomer(customer);
 

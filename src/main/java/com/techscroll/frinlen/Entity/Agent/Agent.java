@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -21,8 +22,8 @@ public class Agent {
     private String name;
     private String mobile;
     private String email;
-    @OneToMany(mappedBy="agent")
-    private Set<Customer> customers;
+    @OneToMany(mappedBy="agent",cascade = CascadeType.ALL)
+    private Set<Customer> customers = new HashSet<>();
 
     public void addCustomer(Customer customer){
         this.customers.add(customer);
