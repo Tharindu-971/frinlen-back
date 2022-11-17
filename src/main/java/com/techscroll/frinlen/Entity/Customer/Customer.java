@@ -25,6 +25,8 @@ public class Customer {
     private String mobile;
     private String email;
     private boolean isActive;
+    private String address1;
+    private String address2;
     @OneToMany(mappedBy = "customer")
     private Set<Invoice> invoices = new HashSet<>();
 
