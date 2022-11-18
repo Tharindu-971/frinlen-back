@@ -1,6 +1,7 @@
 package com.techscroll.frinlen.Entity.Customer;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techscroll.frinlen.Entity.Agent.Agent;
 import com.techscroll.frinlen.Entity.Invoice.Invoice;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,7 @@ public class Customer {
 
     @ManyToOne
     @JoinColumn(name="agent_id", nullable=true)
+
     private Agent agent;
 
     public void isActive(boolean b) {

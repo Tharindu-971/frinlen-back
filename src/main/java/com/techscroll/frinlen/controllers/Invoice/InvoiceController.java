@@ -7,6 +7,7 @@ import com.techscroll.frinlen.Service.Common.InvoiceSequenceService;
 import com.techscroll.frinlen.Service.Invoice.InvoiceService;
 import com.techscroll.frinlen.dto.invoice.request.AgentCustomerCreateRequestDto;
 import com.techscroll.frinlen.repository.Agent.AgentRepository;
+import com.techscroll.frinlen.repository.Customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +28,16 @@ public class InvoiceController {
     @Autowired
     private AgentRepository agentRepository;
 
+    @Autowired
+    private CustomerRepository customerRepository;
+
     @GetMapping("/sequence")
     public ResponseEntity<String> generateInvoiceId(){
         return new ResponseEntity<>(invoiceSequenceService.getInvoiceSequence(),HttpStatus.OK);
     }
 
     @PostMapping("/agent")
-    public ResponseEntity<Agent> agentCustomerCreate(@RequestBody @Valid AgentCustomerCreateRequestDto agentCustomerCreateRequestDto){
+    public ResponseEntity<Customer> agentCustomerCreate(@RequestBody @Valid AgentCustomerCreateRequestDto agentCustomerCreateRequestDto){
         Agent agent = new Agent();
         agent.setName(agentCustomerCreateRequestDto.getAgentName());
         agent.setEmail(agentCustomerCreateRequestDto.getAgentEmail());
@@ -47,11 +51,11 @@ public class InvoiceController {
         customer.setAddress2(agentCustomerCreateRequestDto.getAddress2());
 
 
-        agent.addCustomer(customer);
-
         Agent newAgent = agentRepository.save(agent);
+        customer.setAgent(newAgent);
+        Customer newCustomer = customerRepository.save(customer);
 
-        return new ResponseEntity(newAgent,HttpStatus.CREATED);
+        return new ResponseEntity(newCustomer,HttpStatus.CREATED);
     }
 
     @GetMapping

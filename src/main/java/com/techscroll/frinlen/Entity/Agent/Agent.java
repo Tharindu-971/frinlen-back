@@ -1,5 +1,6 @@
 package com.techscroll.frinlen.Entity.Agent;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techscroll.frinlen.Entity.Customer.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,8 @@ public class Agent {
     private String name;
     private String mobile;
     private String email;
-    @OneToMany(mappedBy="agent",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="agent")
+    @JsonIgnore
     private Set<Customer> customers = new HashSet<>();
 
     public void addCustomer(Customer customer){
