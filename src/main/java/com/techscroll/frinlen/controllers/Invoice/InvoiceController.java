@@ -5,9 +5,14 @@ import com.techscroll.frinlen.Entity.Customer.Customer;
 import com.techscroll.frinlen.Entity.Invoice.Invoice;
 import com.techscroll.frinlen.Service.Common.InvoiceSequenceService;
 import com.techscroll.frinlen.Service.Invoice.InvoiceService;
+import com.techscroll.frinlen.Service.Invoice.InvoiceServiceImpl;
 import com.techscroll.frinlen.dto.invoice.request.AgentCustomerCreateRequestDto;
+import com.techscroll.frinlen.dto.invoice.request.InvoiceCreateRequestDto;
+import com.techscroll.frinlen.dto.invoice.response.InvoiceApprovedResponseDto;
+import com.techscroll.frinlen.dto.invoice.response.InvoiceSequenceResponseDto;
 import com.techscroll.frinlen.repository.Agent.AgentRepository;
 import com.techscroll.frinlen.repository.Customer.CustomerRepository;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +37,10 @@ public class InvoiceController {
     private CustomerRepository customerRepository;
 
     @GetMapping("/sequence")
-    public ResponseEntity<String> generateInvoiceId(){
-        return new ResponseEntity<>(invoiceSequenceService.getInvoiceSequence(),HttpStatus.OK);
+    public ResponseEntity<InvoiceSequenceResponseDto> generateInvoiceId(){
+        InvoiceSequenceResponseDto invoiceSequenceResponseDto = new InvoiceSequenceResponseDto();
+        invoiceSequenceResponseDto.setSequenceId(invoiceSequenceService.getInvoiceSequence());
+        return new ResponseEntity<>(invoiceSequenceResponseDto,HttpStatus.OK);
     }
 
     @PostMapping("/agent")
@@ -64,12 +71,20 @@ public class InvoiceController {
         return new ResponseEntity( invoiceService.findAllInvoices(), HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Invoice> getInvoiceById(@RequestParam Long invoiceId){
-        return new ResponseEntity<>(invoiceService.findInvoiceById(invoiceId), HttpStatus.OK) ;
+    public ResponseEntity<Invoice> getInvoiceById(@PathVariable Long id){
+        return new ResponseEntity<>(invoiceService.findInvoiceById(id), HttpStatus.OK) ;
     }
     @PostMapping
-    public ResponseEntity<?> createInvoice(@RequestBody Invoice invoice){
-        return new ResponseEntity<>( HttpStatus.OK) ;
+    public ResponseEntity<?> createInvoice(@RequestBody InvoiceCreateRequestDto invoice){
+        return new ResponseEntity<>(invoiceService.createInvoice(invoice), HttpStatus.OK) ;
+    }
+
+    @PostMapping("/approve/{id}")
+    public ResponseEntity<?> approveInvoice(@PathVariable Long id,@RequestBody InvoiceCreateRequestDto invoiceCreateRequestDto){
+        invoiceService.approvedInvoice(id,invoiceCreateRequestDto);
+        InvoiceApprovedResponseDto approvedResponseDto = new InvoiceApprovedResponseDto();
+        approvedResponseDto.setApproved(true);
+        return new ResponseEntity<>(approvedResponseDto,HttpStatus.OK);
     }
 
     @PutMapping()

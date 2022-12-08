@@ -27,7 +27,7 @@ public class InventoryController {
     }
     @PostMapping()
     public ResponseEntity<?> createInventory(@RequestBody Inventory inventory){
-        return new ResponseEntity<>( HttpStatus.OK) ;
+        return new ResponseEntity<>( inventoryService.createInventory(inventory),HttpStatus.CREATED) ;
     }
 
     @PutMapping()

@@ -21,12 +21,10 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findById(customerId).get();
     }
     @Override
-    public void createCustomer(Customer customer){
+    public Customer createCustomer(Customer customer){
         Customer customers = customerRepository.findByName(customer.getName());
-        if(customers != null){
-            return ;
-        }
-        Customer customerCreated = customerRepository.save(customer);
+
+        return customerRepository.save(customer);
     }
     @Override
     public void deleteCustomer(Long customerId){

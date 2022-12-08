@@ -12,7 +12,7 @@ public interface CustomerService {
 
     Customer findCustomerById(Long customerId);
 
-    void createCustomer(Customer customer);
+    Customer createCustomer(Customer customer);
 
     void deleteCustomer(Long customerId);
 

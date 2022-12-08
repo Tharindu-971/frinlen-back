@@ -1,10 +1,12 @@
 package com.techscroll.frinlen.Service.Inventory;
 
 import com.techscroll.frinlen.Entity.Inventory.Inventory;
+import com.techscroll.frinlen.Entity.Invoice.InvoiceQuantity;
 import com.techscroll.frinlen.repository.Inventory.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -13,7 +15,20 @@ public class InventoryServiceImpl implements InventoryService{
     private InventoryRepository inventoryRepository;
     @Override
     public List<Inventory> findAllInventories(){
-        return inventoryRepository.findAll();
+
+        List<Inventory> inventories = inventoryRepository.findAll();
+
+        for(Inventory inv : inventories){
+            Iterator<InvoiceQuantity> iterator= inv.getInvoiceQuantities().iterator();
+
+            while (iterator.hasNext()){
+                InvoiceQuantity qty = iterator.next();
+                if(!qty.isStatus()){
+                    inv.setQuantity(inv.getQuantity()-qty.getInvoiceQuantity());
+                }
+            }
+        }
+        return inventories;
     }
     @Override
     public Inventory findInventoryById(Long inventoryId){
@@ -21,12 +36,9 @@ public class InventoryServiceImpl implements InventoryService{
     }
 
     @Override
-    public void createInventory(Inventory inventory){
+    public Inventory createInventory(Inventory inventory){
         Inventory inventorys = inventoryRepository.findByName(inventory.getName());
-        if(inventorys != null){
-            return ;
-        }
-        Inventory inventoryCreated = inventoryRepository.save(inventory);
+       return inventoryRepository.save(inventory);
     }
     @Override
     public void deleteInventory(Long inventoryId){

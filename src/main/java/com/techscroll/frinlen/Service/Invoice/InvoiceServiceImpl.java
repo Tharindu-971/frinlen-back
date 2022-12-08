@@ -1,16 +1,35 @@
 package com.techscroll.frinlen.Service.Invoice;
 
+import com.techscroll.frinlen.Entity.Inventory.Inventory;
 import com.techscroll.frinlen.Entity.Invoice.Invoice;
+import com.techscroll.frinlen.Entity.Invoice.InvoiceQuantity;
+import com.techscroll.frinlen.dto.invoice.request.InventoryInvoiceCreateRequestDto;
+import com.techscroll.frinlen.dto.invoice.request.InvoiceCreateRequestDto;
+import com.techscroll.frinlen.models.User;
+import com.techscroll.frinlen.repository.Inventory.InventoryRepository;
+import com.techscroll.frinlen.repository.Invoice.InvoiceQuantityRepository;
 import com.techscroll.frinlen.repository.Invoice.InvoiceRepository;
+import com.techscroll.frinlen.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService{
     @Autowired
     private InvoiceRepository invoiceRepository;
+
+    @Autowired
+    private InvoiceQuantityRepository invoiceQuantityRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private InventoryRepository inventoryRepository;
     @Override
     public List<Invoice> findAllInvoices(){
         return invoiceRepository.findAll();
@@ -20,12 +39,77 @@ public class InvoiceServiceImpl implements InvoiceService{
         return invoiceRepository.findById(invoiceId).get();
     }
     @Override
-    public void createInvoice(Invoice invoice){
-        Invoice invoices = invoiceRepository.findByNumber(invoice.getNumber());
-        if(invoices != null){
-            return ;
+    public Invoice createInvoice(InvoiceCreateRequestDto invoice){
+        Invoice invoiceCreated = new Invoice().builder()
+                .tax(invoice.getTax())
+                .customer(invoice.getCustomer())
+                .discount(invoice.getDiscount())
+                .isActive(true)
+                .discountAmount(invoice.getDiscountAmount())
+                .number(invoice.getNumber())
+                .subTotal(invoice.getSubTotal())
+                .total(invoice.getTotal())
+                .reason(invoice.getReason())
+                .isApproved(false)
+                .approvedBy(0L)
+                .invoiceQuantities(new HashSet<>())
+                .build();
+
+
+        //BeanUtils.copyProperties(invoice,invoiceCreated);
+
+        boolean approved = invoice.getIsApproved();
+        if(!approved){
+            List<Invoice> invoices = invoiceRepository.findByIsApprovedFalse();
+
+            for(InventoryInvoiceCreateRequestDto inv : invoice.getInventories()){
+                Inventory inventory = inventoryRepository.findById(inv.getId()).get();
+
+                InvoiceQuantity invoiceQuantity = new InvoiceQuantity();
+                invoiceQuantity.setApprovedQuantity(0);
+                invoiceQuantity.setInvoiceQuantity(inv.getInvoiceQty());
+                invoiceQuantity.setStatus(false);
+                invoiceQuantity.setInventory(inventory);
+                invoiceQuantity.setInvoice(invoiceCreated);
+
+                invoiceCreated.addInvoiceQuantity(invoiceQuantity);
+
+            }
+
+
+//        }else{
+//            for(InventoryInvoiceCreateRequestDto inv : invoice.getInventories()){
+//                System.out.println("idddddd"+inv.getId());
+//                Inventory inventory = inventoryRepository.findById(inv.getId()).get();
+//
+//                inventory.setInvoiceQty(inventory.getInvoiceQty()+inv.getInvoiceQty());
+//
+//                Inventory i =inventoryRepository.save(inventory);
+//
+//            }
+
+            invoiceCreated = invoiceRepository.save(invoiceCreated);
         }
-        Invoice invoiceCreated = invoiceRepository.save(invoice);
+        return  invoiceCreated;
+    }
+
+    @Override
+    public void approvedInvoice(Long id,InvoiceCreateRequestDto approveInvoice){
+        Invoice invoice = invoiceRepository.findById(id).get();
+
+        User user = userRepository.findById(approveInvoice.getApprovedBy()).get();
+        approveInvoice.setApprovedBy(user.getId());
+        invoice.setIsApproved(approveInvoice.getIsApproved());
+
+        approveInvoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
+            invoice.getInvoiceQuantities().stream().forEach(inv->{
+                if(invoiceQuantity.getId() == inv.getId()){
+                    inv.setApprovedQuantity(invoiceQuantity.getApprovedQuantity());
+                    inv.setStatus(true);
+                    invoiceQuantityRepository.save(inv);
+                }
+            });
+        });
     }
     @Override
     public void deleteInvoice(Long invoiceId){

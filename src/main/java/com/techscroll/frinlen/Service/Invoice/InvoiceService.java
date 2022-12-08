@@ -1,6 +1,7 @@
 package com.techscroll.frinlen.Service.Invoice;
 
 import com.techscroll.frinlen.Entity.Invoice.Invoice;
+import com.techscroll.frinlen.dto.invoice.request.InvoiceCreateRequestDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,9 @@ public interface InvoiceService {
 
     Invoice findInvoiceById(Long invoiceId);
 
-    void createInvoice(Invoice invoice);
+    Invoice createInvoice(InvoiceCreateRequestDto invoice);
+
+    void approvedInvoice(Long id,InvoiceCreateRequestDto approveInvoice);
 
     void deleteInvoice(Long invoiceId);
 

@@ -27,7 +27,8 @@ public class CustomerController {
     }
     @PostMapping()
     public ResponseEntity<?> createCustomer(@RequestBody Customer customer){
-        return new ResponseEntity<>( HttpStatus.OK) ;
+
+        return ResponseEntity.status(HttpStatus.CREATED).body( customerService.createCustomer(customer)) ;
     }
 
     @PutMapping()

@@ -1,5 +1,6 @@
 package com.techscroll.frinlen.Entity.Whearhouse;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techscroll.frinlen.Entity.Inventory.Inventory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,7 @@ public class Warehouse {
     private boolean isActive;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "inventory_warehouse",
             joinColumns = @JoinColumn(name = "inventory_id"),

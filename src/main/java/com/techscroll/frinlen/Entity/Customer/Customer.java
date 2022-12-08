@@ -4,16 +4,14 @@ package com.techscroll.frinlen.Entity.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techscroll.frinlen.Entity.Agent.Agent;
 import com.techscroll.frinlen.Entity.Invoice.Invoice;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,6 +27,7 @@ public class Customer {
     private String address1;
     private String address2;
     @OneToMany(mappedBy = "customer")
+    @JsonIgnore
     private Set<Invoice> invoices = new HashSet<>();
 
     @ManyToOne
