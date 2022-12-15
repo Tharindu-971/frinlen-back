@@ -51,6 +51,7 @@ public class InvoiceServiceImpl implements InvoiceService{
                 .total(invoice.getTotal())
                 .reason(invoice.getReason())
                 .isApproved(false)
+                .totalLiters(invoice.getTotalLiters())
                 .approvedBy(0L)
                 .invoiceQuantities(new HashSet<>())
                 .build();

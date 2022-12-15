@@ -24,7 +24,7 @@ public class InventoryServiceImpl implements InventoryService{
             while (iterator.hasNext()){
                 InvoiceQuantity qty = iterator.next();
                 if(!qty.isStatus()){
-                    inv.setQuantity(inv.getQuantity()-qty.getInvoiceQuantity());
+                    //inv.setQuantity(inv.getQuantity()-qty.getInvoiceQuantity());
                 }
             }
         }

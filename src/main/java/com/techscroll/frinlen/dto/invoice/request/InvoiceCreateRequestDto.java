@@ -20,6 +20,7 @@ public class InvoiceCreateRequestDto {
     private Double total;
     private Double subTotal;
     private Double tax;
+    private Double totalLiters;
     private Double discount;
     private Double taxAmount;
     private Double discountAmount;
