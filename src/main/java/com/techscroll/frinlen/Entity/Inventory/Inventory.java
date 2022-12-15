@@ -22,6 +22,7 @@ public class Inventory {
     private Long id;
     private String name;
     private Long code;
+    private double strength;
     private Double buyingPrice;
     private Double sellingPrice;
     private Integer quantity;
