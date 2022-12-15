@@ -38,6 +38,7 @@ public class InventoryServiceImpl implements InventoryService{
     @Override
     public Inventory createInventory(Inventory inventory){
         Inventory inventorys = inventoryRepository.findByName(inventory.getName());
+        inventory.setActive(true);
        return inventoryRepository.save(inventory);
     }
     @Override

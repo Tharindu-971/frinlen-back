@@ -29,7 +29,7 @@ public class InvoiceSequenceServiceImpl implements InvoiceSequenceService{
                     .build();
 
             invoiceSequenceRepository.save(newInvoiceSequence);
-            return newInvoiceSequence.getNumber();
+            return newInvoiceSequence.getCode()+"";
         }else{
 
             int code = 1000;
@@ -42,7 +42,7 @@ public class InvoiceSequenceServiceImpl implements InvoiceSequenceService{
                     .build();
 
             invoiceSequenceRepository.save(newInvoiceSequence);
-            return newInvoiceSequence.getNumber();
+            return newInvoiceSequence.getCode()+"";
 
         }
     }

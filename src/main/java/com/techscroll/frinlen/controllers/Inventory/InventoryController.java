@@ -1,7 +1,10 @@
 package com.techscroll.frinlen.controllers.Inventory;
 
+import com.techscroll.frinlen.Entity.Common.ItemCodeSequence;
 import com.techscroll.frinlen.Entity.Inventory.Inventory;
+import com.techscroll.frinlen.Service.Common.ItemCodeSequenceService;
 import com.techscroll.frinlen.Service.Inventory.InventoryService;
+import com.techscroll.frinlen.repository.Common.ItemCodeSequenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,9 @@ import java.util.List;
 public class InventoryController {
     @Autowired
     private InventoryService inventoryService;
+
+    @Autowired
+    private ItemCodeSequenceService itemCodeSequenceService;
 
 
     @GetMapping
@@ -33,6 +39,11 @@ public class InventoryController {
     @PutMapping()
     public ResponseEntity<?> updateInventory(@RequestBody Inventory inventory){
         return new ResponseEntity<>( HttpStatus.OK);
+    }
+
+    @GetMapping("/code")
+    public ResponseEntity<?> getNextItemCode(){
+        return new ResponseEntity<>(itemCodeSequenceService.getNextItemCode(),HttpStatus.OK);
     }
     @DeleteMapping()
     public ResponseEntity<?> deleteInventory(@RequestParam Long inventoryId){

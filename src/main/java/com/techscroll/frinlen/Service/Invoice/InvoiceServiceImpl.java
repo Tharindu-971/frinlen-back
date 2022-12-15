@@ -97,8 +97,14 @@ public class InvoiceServiceImpl implements InvoiceService{
     public void approvedInvoice(Long id,InvoiceCreateRequestDto approveInvoice){
         Invoice invoice = invoiceRepository.findById(id).get();
 
+        //total subtotal and tax
+        double subTotal= 0;
+        double tax = 0;
+        double total=0;
+
         User user = userRepository.findById(approveInvoice.getApprovedBy()).get();
-        approveInvoice.setApprovedBy(user.getId());
+        invoice.setApprovedBy(user.getId());
+        invoice.setReason(approveInvoice.getReason());
         invoice.setIsApproved(approveInvoice.getIsApproved());
 
         approveInvoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
@@ -106,6 +112,7 @@ public class InvoiceServiceImpl implements InvoiceService{
                 if(invoiceQuantity.getId() == inv.getId()){
                     inv.setApprovedQuantity(invoiceQuantity.getApprovedQuantity());
                     inv.setStatus(true);
+                    //subTotal = inv.getInventory().getSellingPrice()* invoiceQuantity.getApprovedQuantity();
                     invoiceQuantityRepository.save(inv);
                 }
             });

@@ -83,7 +83,7 @@ public class InvoiceController {
     public ResponseEntity<?> approveInvoice(@PathVariable Long id,@RequestBody InvoiceCreateRequestDto invoiceCreateRequestDto){
         invoiceService.approvedInvoice(id,invoiceCreateRequestDto);
         InvoiceApprovedResponseDto approvedResponseDto = new InvoiceApprovedResponseDto();
-        approvedResponseDto.setApproved(true);
+        approvedResponseDto.setApproved(invoiceCreateRequestDto.getIsApproved());
         return new ResponseEntity<>(approvedResponseDto,HttpStatus.OK);
     }
 

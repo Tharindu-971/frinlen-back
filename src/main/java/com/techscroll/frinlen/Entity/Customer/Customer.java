@@ -23,6 +23,7 @@ public class Customer {
     private String name;
     private String mobile;
     private String email;
+    private String vatNo;
     private boolean isActive;
     private String address1;
     private String address2;
