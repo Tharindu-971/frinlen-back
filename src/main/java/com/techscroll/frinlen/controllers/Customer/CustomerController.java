@@ -2,6 +2,7 @@ package com.techscroll.frinlen.controllers.Customer;
 
 import com.techscroll.frinlen.Entity.Customer.Customer;
 import com.techscroll.frinlen.Service.Customer.CustomerService;
+import com.techscroll.frinlen.dto.customer.request.CustomerCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.findCustomerById(customerId), HttpStatus.OK) ;
     }
     @PostMapping()
-    public ResponseEntity<?> createCustomer(@RequestBody Customer customer){
+    public ResponseEntity<?> createCustomer(@RequestBody CustomerCreateRequest customer){
 
         return ResponseEntity.status(HttpStatus.CREATED).body( customerService.createCustomer(customer)) ;
     }

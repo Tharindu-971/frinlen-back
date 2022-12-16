@@ -8,4 +8,6 @@ import java.util.List;
 @Service
 public interface AgentService {
     List<Agent> getAllAgents();
+
+    Agent createAgent(Agent agent);
 }

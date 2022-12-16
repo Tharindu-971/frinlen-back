@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Customer findByName(String name);
+    Customer findByMobile(String mobile);
     List<Customer> findByMobileContaining(String mobile);
 }

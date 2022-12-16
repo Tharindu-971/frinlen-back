@@ -6,9 +6,7 @@ import com.techscroll.frinlen.Service.Agent.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,12 @@ public class AgentController {
     public ResponseEntity<List<Agent>> getAllCustomers()
     {
         return new ResponseEntity( agentService.getAllAgents(), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Agent> createAgent(@RequestBody Agent agent){
+
+
+        return new ResponseEntity<>(agentService.createAgent(agent),HttpStatus.OK);
     }
 }

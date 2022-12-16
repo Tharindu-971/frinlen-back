@@ -17,4 +17,10 @@ public class AgentServiceImpl implements AgentService{
     public List<Agent> getAllAgents(){
         return agentRepository.findAll();
     }
+
+    @Override
+    public Agent createAgent(Agent agent){
+        Agent res = agentRepository.save(agent);
+        return res;
+    }
 }
