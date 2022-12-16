@@ -34,6 +34,7 @@ public class Invoice {
     private Double discountAmount;
     private Boolean isApproved;
     private Long approvedBy;
+    private String status;
     private String reason;
     private boolean isActive;
 

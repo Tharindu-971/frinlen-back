@@ -53,6 +53,7 @@ public class InvoiceServiceImpl implements InvoiceService{
                 .isApproved(false)
                 .totalLiters(invoice.getTotalLiters())
                 .approvedBy(0L)
+                .status("PENDING")
                 .invoiceQuantities(new HashSet<>())
                 .build();
 
@@ -107,6 +108,11 @@ public class InvoiceServiceImpl implements InvoiceService{
         invoice.setApprovedBy(user.getId());
         invoice.setReason(approveInvoice.getReason());
         invoice.setIsApproved(approveInvoice.getIsApproved());
+        if(approveInvoice.getIsApproved()){
+            invoice.setStatus("APPROVED");
+        }else {
+            invoice.setStatus("REJECTED");
+        }
 
         approveInvoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
             invoice.getInvoiceQuantities().stream().forEach(inv->{
