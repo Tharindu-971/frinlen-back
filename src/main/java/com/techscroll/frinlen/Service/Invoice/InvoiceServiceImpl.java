@@ -108,16 +108,19 @@ public class InvoiceServiceImpl implements InvoiceService{
         invoice.setApprovedBy(user.getId());
         invoice.setReason(approveInvoice.getReason());
         invoice.setIsApproved(approveInvoice.getIsApproved());
+
         if(approveInvoice.getIsApproved()){
             invoice.setStatus("APPROVED");
         }else {
             invoice.setStatus("REJECTED");
         }
+        invoice.setTotalLiters(approveInvoice.getTotalLiters());
 
         approveInvoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
             invoice.getInvoiceQuantities().stream().forEach(inv->{
                 if(invoiceQuantity.getId() == inv.getId()){
                     inv.setApprovedQuantity(invoiceQuantity.getApprovedQuantity());
+
                     inv.setStatus(true);
                     //subTotal = inv.getInventory().getSellingPrice()* invoiceQuantity.getApprovedQuantity();
                     invoiceQuantityRepository.save(inv);
