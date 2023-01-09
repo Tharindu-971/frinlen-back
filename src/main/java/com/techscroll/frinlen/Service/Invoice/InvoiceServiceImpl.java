@@ -32,7 +32,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     private InventoryRepository inventoryRepository;
     @Override
     public List<Invoice> findAllInvoices(){
-        return invoiceRepository.findAll();
+        return invoiceRepository.findAllByOrderByIdDesc();
     }
     @Override
     public Invoice findInvoiceById(Long invoiceId){

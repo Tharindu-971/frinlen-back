@@ -10,5 +10,7 @@ import java.util.List;
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice,Long> {
     Invoice findByNumber(String number);
+
+    List<Invoice> findAllByOrderByIdDesc();
     List<Invoice> findByIsApprovedFalse();
 }
