@@ -27,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
     @Override
     public Customer createCustomer(CustomerCreateRequest customer){
-        Customer customers = customerRepository.findByMobile(customer.getMobile());
+        //Customer customers = customerRepository.findByMobile(customer.getMobile());
         Agent agent = agentRepository.findById(customer.getAgentId()).get();
         Customer cus = new Customer().builder()
                 .name(customer.getName())
