@@ -127,6 +127,8 @@ public class InvoiceServiceImpl implements InvoiceService{
                 }
             });
         });
+
+        invoiceRepository.save(invoice);
     }
     @Override
     public void deleteInvoice(Long invoiceId){
