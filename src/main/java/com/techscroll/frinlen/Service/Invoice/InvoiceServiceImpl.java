@@ -135,7 +135,13 @@ public class InvoiceServiceImpl implements InvoiceService{
 //        });
 
 
-        System.out.println("outside"+approveInvoice.getInvoiceQuantities());
+        approveInvoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
+            System.out.println("invoice approved "+ invoiceQuantity.getApprovedQuantity()+"  id"+invoiceQuantity.getId());
+        });
+
+        invoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
+            System.out.println("invoice:::: "+invoiceQuantity.getApprovedQuantity()+"  id:::"+invoiceQuantity.getId());
+        });
 
         approveInvoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
             invoice.getInvoiceQuantities().stream().forEach(inv->{
