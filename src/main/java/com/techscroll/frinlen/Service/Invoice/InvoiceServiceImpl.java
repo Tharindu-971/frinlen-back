@@ -150,8 +150,9 @@ public class InvoiceServiceImpl implements InvoiceService{
         List<InvoiceQuantity> invoiceQuantitiesInv = new ArrayList<>(invoice.getInvoiceQuantities());
 
         for (InvoiceQuantity ivoice: invoiceQuantities) {
+            System.out.println("invoicecccccapppppppppppccccccccc"+ivoice.getApprovedQuantity());
             for (InvoiceQuantity inv: invoiceQuantitiesInv) {
-
+                System.out.println("not appr"+inv.getApprovedQuantity());
                 if(ivoice.getId() == inv.getId()){
                     inv.setApprovedQuantity(ivoice.getApprovedQuantity());
                     System.out.println("invoicecccccccccccccc"+ivoice.getApprovedQuantity());
