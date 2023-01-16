@@ -135,14 +135,13 @@ public class InvoiceServiceImpl implements InvoiceService{
 //        });
 
 
-
-
+        System.out.println("outside"+approveInvoice.getInvoiceQuantities());
 
         approveInvoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
             invoice.getInvoiceQuantities().stream().forEach(inv->{
                 if(invoiceQuantity.getId() == inv.getId()){
                     inv.setApprovedQuantity(invoiceQuantity.getApprovedQuantity());
-
+                    System.out.println("invoicecccccccccccccc"+invoiceQuantity.getApprovedQuantity());
                     inv.setStatus(true);
                     //subTotal = inv.getInventory().getSellingPrice()* invoiceQuantity.getApprovedQuantity();
                     invoiceQuantityRepository.save(inv);
