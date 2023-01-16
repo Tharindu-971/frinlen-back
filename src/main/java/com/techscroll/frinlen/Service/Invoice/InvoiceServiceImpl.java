@@ -116,19 +116,38 @@ public class InvoiceServiceImpl implements InvoiceService{
         }
         invoice.setTotalLiters(approveInvoice.getTotalLiters());
 
-        approveInvoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
-            invoice.getInvoiceQuantities().stream().forEach(inv->{
-                if(invoiceQuantity.getId() == inv.getId()){
-                    inv.setApprovedQuantity(invoiceQuantity.getApprovedQuantity());
 
-                    inv.setStatus(true);
-                    //subTotal = inv.getInventory().getSellingPrice()* invoiceQuantity.getApprovedQuantity();
-                    invoiceQuantityRepository.save(inv);
-                }
-            });
+        List<InvoiceQuantity> invoiceQuantities = invoiceQuantityRepository.findAll();
+
+        Set<InvoiceQuantity> invoiceQuantitiesInv = invoice.getInvoiceQuantities();
+
+        invoiceQuantities.retainAll(invoiceQuantitiesInv);
+
+        System.out.println("Intersection = "+ invoiceQuantities);
+
+        invoiceQuantities.stream().forEach(invoiceQuantity -> {
+            invoiceQuantity.setStatus(true);
+            System.out.println("invoicecccccccccccccc"+invoiceQuantity.getApprovedQuantity());
+            invoiceQuantityRepository.save(invoiceQuantity);
         });
 
-        invoiceRepository.save(invoice);
+
+
+
+
+//        approveInvoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
+//            invoice.getInvoiceQuantities().stream().forEach(inv->{
+//                if(invoiceQuantity.getId() == inv.getId()){
+//                    inv.setApprovedQuantity(invoiceQuantity.getApprovedQuantity());
+//
+//                    inv.setStatus(true);
+//                    //subTotal = inv.getInventory().getSellingPrice()* invoiceQuantity.getApprovedQuantity();
+//                    invoiceQuantityRepository.save(inv);
+//                }
+//            });
+//        });
+
+        //invoiceRepository.save(invoice);
     }
     @Override
     public void deleteInvoice(Long invoiceId){
