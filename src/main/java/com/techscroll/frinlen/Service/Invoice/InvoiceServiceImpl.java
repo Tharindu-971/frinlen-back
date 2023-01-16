@@ -115,40 +115,40 @@ public class InvoiceServiceImpl implements InvoiceService{
             invoice.setStatus("REJECTED");
         }
         invoice.setTotalLiters(approveInvoice.getTotalLiters());
-
-
-        List<InvoiceQuantity> invoiceQuantities = invoiceQuantityRepository.findAll();
-
-        Set<InvoiceQuantity> invoiceQuantitiesInv = approveInvoice.getInvoiceQuantities();
-
-        invoiceQuantitiesInv.retainAll(invoiceQuantities);
-
-        System.out.println("Intersection = "+ invoiceQuantitiesInv);
-
-        invoiceQuantitiesInv.stream().forEach(invoiceQuantity -> {
-            approveInvoice.getInvoiceQuantities().stream().filter(inv -> inv.getId() == invoiceQuantity.getId()).forEach(iv->{
-                invoiceQuantity.setApprovedQuantity(iv.getApprovedQuantity());
-            });
-            invoiceQuantity.setStatus(true);
-            System.out.println("invoicecccccccccccccc"+invoiceQuantity.getApprovedQuantity());
-            invoiceQuantityRepository.save(invoiceQuantity);
-        });
-
-
-
-
-
-//        approveInvoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
-//            invoice.getInvoiceQuantities().stream().forEach(inv->{
-//                if(invoiceQuantity.getId() == inv.getId()){
-//                    inv.setApprovedQuantity(invoiceQuantity.getApprovedQuantity());
 //
-//                    inv.setStatus(true);
-//                    //subTotal = inv.getInventory().getSellingPrice()* invoiceQuantity.getApprovedQuantity();
-//                    invoiceQuantityRepository.save(inv);
-//                }
+//
+//        List<InvoiceQuantity> invoiceQuantities = invoiceQuantityRepository.findAll();
+//
+//        Set<InvoiceQuantity> invoiceQuantitiesInv = invoice.getInvoiceQuantities();
+//
+//        invoiceQuantitiesInv.retainAll(invoiceQuantities);
+//
+//        System.out.println("Intersection = "+ invoiceQuantitiesInv);
+//
+//        invoiceQuantitiesInv.stream().forEach(invoiceQuantity -> {
+//            approveInvoice.getInvoiceQuantities().stream().filter(inv -> inv.getId() == invoiceQuantity.getId()).forEach(iv->{
+//                invoiceQuantity.setApprovedQuantity(iv.getApprovedQuantity());
 //            });
+//            invoiceQuantity.setStatus(true);
+//            System.out.println("invoicecccccccccccccc"+invoiceQuantity.getApprovedQuantity());
+//            invoiceQuantityRepository.save(invoiceQuantity);
 //        });
+
+
+
+
+
+        approveInvoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
+            invoice.getInvoiceQuantities().stream().forEach(inv->{
+                if(invoiceQuantity.getId() == inv.getId()){
+                    inv.setApprovedQuantity(invoiceQuantity.getApprovedQuantity());
+
+                    inv.setStatus(true);
+                    //subTotal = inv.getInventory().getSellingPrice()* invoiceQuantity.getApprovedQuantity();
+                    invoiceQuantityRepository.save(inv);
+                }
+            });
+        });
 
         //invoiceRepository.save(invoice);
     }
