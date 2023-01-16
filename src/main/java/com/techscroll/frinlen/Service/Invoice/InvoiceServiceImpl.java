@@ -119,13 +119,16 @@ public class InvoiceServiceImpl implements InvoiceService{
 
         List<InvoiceQuantity> invoiceQuantities = invoiceQuantityRepository.findAll();
 
-        Set<InvoiceQuantity> invoiceQuantitiesInv = invoice.getInvoiceQuantities();
+        Set<InvoiceQuantity> invoiceQuantitiesInv = approveInvoice.getInvoiceQuantities();
 
-        invoiceQuantities.retainAll(invoiceQuantitiesInv);
+        invoiceQuantitiesInv.retainAll(invoiceQuantities);
 
-        System.out.println("Intersection = "+ invoiceQuantities);
+        System.out.println("Intersection = "+ invoiceQuantitiesInv);
 
-        invoiceQuantities.stream().forEach(invoiceQuantity -> {
+        invoiceQuantitiesInv.stream().forEach(invoiceQuantity -> {
+            approveInvoice.getInvoiceQuantities().stream().filter(inv -> inv.getId() == invoiceQuantity.getId()).forEach(iv->{
+                invoiceQuantity.setApprovedQuantity(iv.getApprovedQuantity());
+            });
             invoiceQuantity.setStatus(true);
             System.out.println("invoicecccccccccccccc"+invoiceQuantity.getApprovedQuantity());
             invoiceQuantityRepository.save(invoiceQuantity);
