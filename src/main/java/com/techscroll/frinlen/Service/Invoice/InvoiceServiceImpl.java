@@ -154,6 +154,7 @@ public class InvoiceServiceImpl implements InvoiceService{
             for (InvoiceQuantity inv: invoiceQuantitiesInv) {
                 System.out.println("not appr"+inv.getApprovedQuantity()+"Id;;;"+inv.getId());
                 System.out.println(" appr"+ivoice.getApprovedQuantity()+"idd::::"+ivoice.getId());
+                System.out.println("trueeeee "+(ivoice.getId() == inv.getId()));
                 if(ivoice.getId() == inv.getId()){
                     inv.setApprovedQuantity(ivoice.getApprovedQuantity());
                     System.out.println("invoicecccccccccccccc"+ivoice.getApprovedQuantity());
