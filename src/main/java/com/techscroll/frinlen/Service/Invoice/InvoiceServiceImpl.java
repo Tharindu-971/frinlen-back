@@ -13,6 +13,7 @@ import com.techscroll.frinlen.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -143,17 +144,38 @@ public class InvoiceServiceImpl implements InvoiceService{
             System.out.println("invoice:::: "+invoiceQuantity.getApprovedQuantity()+"  id:::"+invoiceQuantity.getId());
         });
 
-        approveInvoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
-            invoice.getInvoiceQuantities().stream().forEach(inv->{
-                if(invoiceQuantity.getId() == inv.getId()){
-                    inv.setApprovedQuantity(invoiceQuantity.getApprovedQuantity());
-                    System.out.println("invoicecccccccccccccc"+invoiceQuantity.getApprovedQuantity());
+        //convert set to list
+
+        List<InvoiceQuantity> invoiceQuantities = new ArrayList<>(approveInvoice.getInvoiceQuantities());
+        List<InvoiceQuantity> invoiceQuantitiesInv = new ArrayList<>(invoice.getInvoiceQuantities());
+
+        for (InvoiceQuantity ivoice: invoiceQuantities) {
+            for (InvoiceQuantity inv: invoiceQuantitiesInv) {
+
+                if(ivoice.getId() == inv.getId()){
+                    inv.setApprovedQuantity(ivoice.getApprovedQuantity());
+                    System.out.println("invoicecccccccccccccc"+ivoice.getApprovedQuantity());
                     inv.setStatus(true);
                     //subTotal = inv.getInventory().getSellingPrice()* invoiceQuantity.getApprovedQuantity();
                     invoiceQuantityRepository.save(inv);
+
                 }
-            });
-        });
+            }
+
+        }
+
+
+//        approveInvoice.getInvoiceQuantities().stream().forEach(invoiceQuantity -> {
+//            invoice.getInvoiceQuantities().stream().forEach(inv->{
+//                if(invoiceQuantity.getId() == inv.getId()){
+//                    inv.setApprovedQuantity(invoiceQuantity.getApprovedQuantity());
+//                    System.out.println("invoicecccccccccccccc"+invoiceQuantity.getApprovedQuantity());
+//                    inv.setStatus(true);
+//                    //subTotal = inv.getInventory().getSellingPrice()* invoiceQuantity.getApprovedQuantity();
+//                    invoiceQuantityRepository.save(inv);
+//                }
+//            });
+//        });
 
         //invoiceRepository.save(invoice);
     }
