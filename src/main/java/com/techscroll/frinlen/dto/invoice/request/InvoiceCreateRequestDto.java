@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +29,9 @@ public class InvoiceCreateRequestDto {
     private Long approvedBy;
     private String reason;
     private boolean isActive;
+    private Date createDate;
+    private Date deliveryDate;
+    private Date updatedDay;
     private Customer customer;
     private Set<InvoiceQuantity> invoiceQuantities = new HashSet<>();
     private Set<InventoryInvoiceCreateRequestDto> inventories = new HashSet<>();

@@ -74,6 +74,11 @@ public class InvoiceController {
     public ResponseEntity<Invoice> getInvoiceById(@PathVariable Long id){
         return new ResponseEntity<>(invoiceService.findInvoiceById(id), HttpStatus.OK) ;
     }
+
+    @PostMapping("/update/{id}")
+    public ResponseEntity<Invoice> updateInvoice(@PathVariable Long id,@RequestBody InvoiceCreateRequestDto invoiceCreateRequestDto ){
+        return new ResponseEntity<>(invoiceService.updateInvoiceById(id,invoiceCreateRequestDto), HttpStatus.OK) ;
+    }
     @PostMapping
     public ResponseEntity<?> createInvoice(@RequestBody InvoiceCreateRequestDto invoice){
         return new ResponseEntity<>(invoiceService.createInvoice(invoice), HttpStatus.OK) ;

@@ -10,6 +10,7 @@ import com.techscroll.frinlen.models.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,6 +35,9 @@ public class Invoice {
     private Double discountAmount;
     private Boolean isApproved;
     private Long approvedBy;
+    private Date createDate;
+    private Date deliveryDate;
+    private Date updatedDay;
     private String status;
     private String reason;
     private boolean isActive;

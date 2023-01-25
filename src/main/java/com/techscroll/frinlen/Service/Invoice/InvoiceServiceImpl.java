@@ -52,6 +52,9 @@ public class InvoiceServiceImpl implements InvoiceService{
                 .total(invoice.getTotal())
                 .reason(invoice.getReason())
                 .isApproved(false)
+                .createDate(invoice.getCreateDate())
+                .updatedDay(invoice.getUpdatedDay())
+                .deliveryDate(invoice.getDeliveryDate())
                 .totalLiters(invoice.getTotalLiters())
                 .approvedBy(0L)
                 .status("PENDING")
@@ -105,10 +108,13 @@ public class InvoiceServiceImpl implements InvoiceService{
         double tax = 0;
         double total=0;
 
+
+
         User user = userRepository.findById(approveInvoice.getApprovedBy()).get();
         invoice.setApprovedBy(user.getId());
         invoice.setReason(approveInvoice.getReason());
         invoice.setIsApproved(approveInvoice.getIsApproved());
+        invoice.setUpdatedDay(approveInvoice.getUpdatedDay());
 
         if(approveInvoice.getIsApproved()){
             invoice.setStatus("APPROVED");
@@ -200,5 +206,18 @@ public class InvoiceServiceImpl implements InvoiceService{
             Invoice invoiceCreated = invoiceRepository.save(invoice);
         }
         return ;
+    }
+
+    @Override
+    public Invoice updateInvoiceById(Long id,InvoiceCreateRequestDto invoiceCreateRequestDto) {
+        Invoice invoice = invoiceRepository.findById(id).get();
+        if(invoice!=null){
+            invoice.setDeliveryDate(invoiceCreateRequestDto.getDeliveryDate());
+            System.out.println("Delivery Date "+invoice.getDeliveryDate());
+            invoiceRepository.save(invoice);
+            return invoice;
+        }
+
+        return null;
     }
 }

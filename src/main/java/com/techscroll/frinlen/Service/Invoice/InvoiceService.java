@@ -21,4 +21,5 @@ public interface InvoiceService {
 
     void updateInvoice(Invoice invoice);
 
+    Invoice updateInvoiceById(Long id,InvoiceCreateRequestDto invoiceCreateRequestDto);
 }
