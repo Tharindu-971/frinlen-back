@@ -1,33 +1,25 @@
-package com.techscroll.frinlen.Entity.Agent;
+package com.techscroll.frinlen.entity.agent;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.techscroll.frinlen.Entity.Customer.Customer;
+import com.techscroll.frinlen.entity.customer.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Entity
 public class Agent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String mobile;
     private String email;
-    @OneToMany(mappedBy="agent")
-    @JsonIgnore
-    private Set<Customer> customers = new HashSet<>();
-
-    public void addCustomer(Customer customer){
-        this.customers.add(customer);
-    }
+    @OneToMany(mappedBy = "agent", cascade = CascadeType.ALL)
+    private List<Customer> customers;
 }

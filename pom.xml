@@ -16,7 +16,7 @@
 	<description>Demo project for Spring Boot Security - JWT</description>
 
 	<properties>
-		<java.version>8</java.version>
+		<java.version>11</java.version>
 		<skipTests>true</skipTests>
 	</properties>
 
@@ -56,8 +56,18 @@
 
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.5</version>
 		</dependency>
 
 		<dependency>
