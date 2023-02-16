@@ -33,12 +33,12 @@ public class InventoryController {
     }
     @PostMapping()
     public ResponseEntity<?> createInventory(@RequestBody Inventory inventory){
-        return new ResponseEntity<>( inventoryService.createInventory(inventory),HttpStatus.CREATED) ;
+        return new ResponseEntity<>(inventoryService.createInventory(inventory),HttpStatus.CREATED) ;
     }
 
-    @PutMapping()
-    public ResponseEntity<?> updateInventory(@RequestBody Inventory inventory){
-        return new ResponseEntity<>( HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateInventory(@PathVariable Long id,@RequestBody Inventory inventory){
+        return new ResponseEntity(inventoryService.updateInventory(id,inventory),HttpStatus.OK);
     }
 
     @GetMapping("/code")

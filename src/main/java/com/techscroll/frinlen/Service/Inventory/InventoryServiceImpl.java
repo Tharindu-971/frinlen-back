@@ -53,11 +53,12 @@ public class InventoryServiceImpl implements InventoryService{
 
     }
     @Override
-    public void updateInventory(Inventory inventory){
-        Inventory inventorys = inventoryRepository.findById(inventory.getId()).get();
+    public Inventory updateInventory(Long id,Inventory inventory){
+        Inventory inventoryUpdated = new Inventory();
+        Inventory inventorys = inventoryRepository.findById(id).get();
         if(inventorys != null){
-            Inventory inventoryCreated = inventoryRepository.save(inventory);
+            inventoryUpdated = inventoryRepository.save(inventory);
         }
-        return ;
+        return inventoryUpdated;
     }
 }
