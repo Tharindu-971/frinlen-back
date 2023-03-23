@@ -32,7 +32,7 @@ services:
 
   frontend:
     image: frinlan-frontend-official
-    build: ../frinlen-front
+    build: ../finnland-official-front
     ports:
       - '3003:80'
     expose:
