@@ -10,31 +10,31 @@ services:
       MYSQL_PASSWORD: 'Official@tech'
       MYSQL_ROOT_PASSWORD: 'root@toor#321'
     ports:
-      - '3306:3306'
+      - '3309:3306'
     expose:
-      - '3306'
+      - '3309'
     volumes:
-      - /home/myVm/data/:/var/lib/mysql
+      - /home/myVm/dataOfficial/:/var/lib/mysql
 
   backend:
-    image: frinlan
+    image: frinlan-official
     build: .
     ports:
       - '8080:8080'
     environment:
-      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql_db:3306/finlandb?useSSL=false'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql_db_official:3306/finlandb?useSSL=false'
       SPRING_DATASOURCE_USERNAME: 'finnlanadmin'
       SPRING_DATASOURCE_PASSWORD: 'Official@tech'
     expose:
-      - '8080'
+      - '8083'
     depends_on:
       - "db"
 
   frontend:
-    image: frinlan-frontend
+    image: frinlan-frontend-official
     build: ../frinlen-front
     ports:
-      - '3000:80'
+      - '3003:80'
     expose:
       - '80'
 
