@@ -20,7 +20,7 @@ services:
     image: frinlan-official
     build: .
     ports:
-      - '8080:8080'
+      - '8083:8080'
     environment:
       SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql_db_official:3306/finlandb?useSSL=false'
       SPRING_DATASOURCE_USERNAME: 'finnlanadmin'
